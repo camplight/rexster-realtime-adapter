@@ -1,0 +1,69 @@
+<html>
+<head>
+    <title></title>
+    
+    <script src="http://localhost:8000/client.js"></script>
+
+</head>
+<body>
+    <script>
+    
+        packageme.require("rexster-client").initialize(function(api){
+            
+            api.getGraph("neo4jsample", function(err, graph){
+              console.log("0 - got the graph:",graph);
+              
+              graph.addVertex({author: "none", createdAt: new Date()}, function(err, vertex){
+                console.log("1 - added new vertex:",vertex);
+                
+                vertex.setProperties({author: "rexster-client", modifiedAt: new Date()}, function(err, properties){
+                  console.log("2 - set property of newly created vertex:", properties);
+                });
+                
+                graph.addEdge(vertex._id, 42, "connected", {createdAt: new Date()}, function(err, edge){
+                  console.log("2 - added new out edge from newly created vertex in vertex with id 42:",edge);
+
+                  vertex.removeProperties(["author", "createdAt"], function(err){
+                    console.log("3 - removed some properties from newly created vertex", err);
+                    
+                    graph.removeVertex(vertex._id, function(err) {
+                      console.log("4 - removed newly created vertex", err);
+                    });
+                  });
+                });
+                
+                graph.getVertex(42, function(err, vertex){
+                  console.log("2 - got vertex with id 42:", vertex);
+                  
+                  vertex.getInEdges(function(err, edges){
+                    console.log("3 - got all in edges of vertex with id 42:", edges);
+                  });
+                });
+              });
+
+
+              graph.signals.newVertex.bind(function(vertex) {
+                console.log("new vertex has been created:", vertex);
+              });
+
+              graph.signals.newEdge.bind(function(edge) {
+                console.log("new edge has been created:", edge);
+              });
+
+              graph.signals.vertexPropertiesChanged.bind(function(eventData) {
+                console.log("vertex properties has been changed:", eventData);
+              });
+
+              graph.signals.vertexPropertiesRemoved.bind(function(eventData) {
+                console.log("vertex properties has been removed:", eventData);
+              });
+
+              graph.signals.vertexRemoved.bind(function(eventData) {
+                console.log("vertex has been removed:", eventData);
+              });
+            });
+        });
+
+    </script>
+</body>
+</html>
