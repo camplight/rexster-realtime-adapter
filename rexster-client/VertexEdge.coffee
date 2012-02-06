@@ -1,6 +1,6 @@
 module.exports.use = (execute, Node)->  
   
-  wrapResponseForArray: (graph, classType, handle) ->
+  wrapResponseForArray = (graph, classType, handle) ->
     return (err, response) =>
       if err
         handle err, response
@@ -11,7 +11,7 @@ module.exports.use = (execute, Node)->
         items.push new classType(data, graph)
       handle err, items
   
-  wrapResponseForObject: (graph, classType, handle) ->
+  wrapResponseForObject = (graph, classType, handle) ->
     return (err, response)->
       if err
         handle err, response
@@ -31,11 +31,11 @@ module.exports.use = (execute, Node)->
       execute "GET", @graph.name, "/vertices/"+@_id+"/inE", null, wrapResponseForArray(@graph, classType, handle)
 
   class Edge extends Node
-      constructor: (edgeData, @graph) ->
-        super edgeData, "edges", @graph
-      getOutVertex: (handle, classType = Vertex) ->
-        execute "GET", @graph.name, "/vertices/"+@_outV, null, wrapResponseForObject(@graph, classType, handle)
-      getInVertex: (handle, classType = Vertex) ->
-        execute "GET", @graph.name, "/vertices/"+@_inV, null, wrapResponseForObject(@graph, classType, handle)
+    constructor: (edgeData, @graph) ->
+      super edgeData, "edges", @graph
+    getOutVertex: (handle, classType = Vertex) ->
+      execute "GET", @graph.name, "/vertices/"+@_outV, null, wrapResponseForObject(@graph, classType, handle)
+    getInVertex: (handle, classType = Vertex) ->
+      execute "GET", @graph.name, "/vertices/"+@_inV, null, wrapResponseForObject(@graph, classType, handle)
   
   return { Vertex: Vertex, Edge: Edge}
