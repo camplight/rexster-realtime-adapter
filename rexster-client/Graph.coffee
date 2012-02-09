@@ -14,6 +14,7 @@ module.exports.use = (execute, now) ->
     addVertex: (properties, handle, classType = Vertex) ->
       execute "POST", @name, "/vertices", properties, (err, response) =>
         handle err, new classType(response.results, @)
+          
     removeVertex: (vertexId, handle) ->
       execute "DELETE", @name, "/vertices/"+vertexId, null, (err, response) =>
         handle err, response
@@ -22,6 +23,7 @@ module.exports.use = (execute, now) ->
       url = "/edges?_outV="+fromVertexId+"&_label="+label+"&_inV="+toVertexId
       execute "POST", @name, url, properties, (err, response) =>
         handle err, new classType(response.results, @)
+          
     removeEdge: (edgeId, handle) ->
       execute "DELETE", @name, "/edges/"+edgeId, null, (err, response) =>
         handle err, response
@@ -29,6 +31,7 @@ module.exports.use = (execute, now) ->
     getVertex: (id, handle, classType = Vertex) ->
       execute "GET", @name, "/vertices/"+id, null, (err, response) =>
         handle err, new classType(response.results, @)
+          
     getEdge: (id, handle, classType = Edge) ->
       execute "GET", @name, "/edges/"+id, null, (err, response) =>
         handle err, new classType(response.results, @)

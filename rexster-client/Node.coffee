@@ -5,11 +5,11 @@ module.exports.use = (execute) ->
         @[key] = nodeData[key]
     
     setProperties: (properties, handle) ->
-      url = "/"+@nodeType+"/"+@_id+"?"
+      url = "/" + @nodeType + "/" + @_id + "?"
       
       propPairs = []
       for key of properties
-        propPairs.push key+"="+encodeURIComponent(properties[key])
+        propPairs.push key + "=" + encodeURIComponent(properties[key])
       url += propPairs.join("&")
       
       execute "PUT", @graph.name, url, null, (err, response) =>
@@ -22,7 +22,7 @@ module.exports.use = (execute) ->
       return @[key]
     
     removeProperties: (keys, handle) ->
-      url = "/"+@nodeType+"/"+@_id+"?"+keys.join("&")
+      url = "/" + @nodeType + "/" + @_id + "?" + keys.join("&")
       execute "DELETE", @graph.name, url, null, (err, response) =>
         if not err
           for key in keys
@@ -32,7 +32,7 @@ module.exports.use = (execute) ->
     tp:
       gremlin:
         script: (script, handle) ->
-          url = "/"+@nodeType+"/"+@_id+"/tp/gremlin?script="+encodeURIComponent(script)
+          url = "/" + @nodeType + "/" + @_id + "/tp/gremlin?script=" + encodeURIComponent(script)
           execute "GET", @graph.name, url, null, (err, response) ->
             if err 
               handle err, response

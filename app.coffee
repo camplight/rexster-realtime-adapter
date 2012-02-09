@@ -1,16 +1,16 @@
-now = require("now")
-express = require('express')
-packageme = require("packageme")
-rexsterAdapter = require("./adapter")
-subscriber = require("./SignalSubscriber")
-_ = require("underscore")
+now = require 'now'
+express = require 'express'
+packageme = require 'packageme'
+rexsterAdapter = require './adapter'
+subscriber = require './SignalSubscriber'
+_ = require 'underscore'
 
 app = module.exports = express.createServer()
 
 app.configure () ->
   app.use express.bodyParser() 
   app.use express.methodOverride()
-  app.use packageme(__dirname+"/rexster-client").toURI("/client.js")
+  app.use packageme(__dirname + "/rexster-client").toURI("/client.js")
   app.use app.router
 
 app.configure 'development', () ->

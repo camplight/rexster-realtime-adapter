@@ -1,4 +1,4 @@
-http = require("http")
+http = require 'http'
 ###
 req =
 url: "/graph/..."
@@ -20,7 +20,7 @@ module.exports.proxyRequest = (req, resultHandler) ->
     resp.on "data", (chunk) ->
       body += chunk.toString()
     resp.on "end", () ->
-      if resp.statusCode != 200
+      if resp.statusCode isnt 200
         resultHandler {error: resp.statusCode, message: body}, null
       else
         resultHandler null, body

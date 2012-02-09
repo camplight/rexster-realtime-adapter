@@ -1,29 +1,28 @@
 exports.initialize = (resulthandle) ->
-  # require now 
-  require("./now")
+  require './now'
 
   # register window.nowInitialize method for setuping now connection
-  window.now = now = window.nowInitialize("//localhost:8000", {});
+  window.now = now = window.nowInitialize("//localhost:8000", {})
   window.now.ready ()->
 
     execute = (method, graphname, url, body, handle)->
       params = []
       
       # TODO replace this with PUT/POST body. currently uses the uri
-      if body != null
+      if body isnt null
         for key of body
-          params.push key+"="+encodeURIComponent(body[key])
+          params.push key + "=" + encodeURIComponent(body[key])
       if params.length > 0
-        if url.indexOf("?") == -1
-          params = "?"+params.join("&")
+        if url.indexOf("?") is -1
+          params = "?" + params.join("&")
         else
-          params = "&"+params.join("&")
+          params = "&" + params.join("&")
       else
         params = ""
       
       req = 
         method: method
-        url: "/graphs/"+graphname+url+params
+        url: "/graphs/" + graphname + url + params
       
       now.execute now.core.clientId, req, handle
     
