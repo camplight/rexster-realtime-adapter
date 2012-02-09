@@ -14,21 +14,25 @@ module.exports.use = (now, Vertex, Edge) ->
     
     newVertex: new Signal (response, handle) ->
       handle new Vertex(response.results)
+      
     newEdge: new Signal (response, handle) ->  
       handle new Edge(response.results)
 
     vertexPropertiesChanged: new Signal (response, handle) ->
       handle response.results
+      
     edgePropertiesChanged: new Signal (response, handle) ->
       handle response.results
 
     vertexRemoved: new Signal (response, handle) ->
       handle response # void?
+      
     edgeRemoved: new Signal (response, handle) ->
       handle response # void?
 
     vertexPropertiesRemoved: new Signal (response, handle) ->
       handle response # void?
+      
     edgePropertiesRemoved: new Signal (response, handle) ->
       handle response # void?
 
