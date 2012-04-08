@@ -9,7 +9,7 @@
 <body>
     <script>
     
-        packageme.require("rexster-client").initialize(function(api){
+        packageme.require("rexster-client").initialize("//localhost:8000", function(api){
             
             api.getGraph("neo4jsample", function(err, graph){
               console.log("0 - got the graph:", err, graph);

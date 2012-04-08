@@ -1,9 +1,9 @@
-exports.initialize = (resulthandle) ->
+exports.initialize = (graphServer, resulthandle) ->
   # require now 
   require("./now")
 
   # register window.nowInitialize method for setuping now connection
-  window.now = now = window.nowInitialize("//localhost:8000", {});
+  window.now = now = window.nowInitialize(graphServer, {});
   window.now.ready ()->
 
     execute = (method, graphname, url, body, handle)->
