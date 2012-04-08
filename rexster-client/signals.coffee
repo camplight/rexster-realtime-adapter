@@ -2,13 +2,13 @@ module.exports.use = (now, Vertex, Edge) ->
   
   # helper class for signal features
   class Signal
-    constructor: (@signalTransformer, @name = "") ->
+    constructor: (@signalTransformer, @signal = "") ->
 
     bind: (handle) ->
-      now.bind now.core.clientId, @name, (signalData) =>
+      now.bind now.core.clientId, @signal, (signalData) =>
         @signalTransformer.call null, signalData, handle
     unbind: ()->
-      now.unbind now.core.clientId, @name
+      now.unbind now.core.clientId, @signal
 
   signals = 
     

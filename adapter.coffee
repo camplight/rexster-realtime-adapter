@@ -21,6 +21,7 @@ module.exports.proxyRequest = (req, resultHandler) ->
       body += chunk.toString()
     resp.on "end", () ->
       if resp.statusCode != 200
+        console.log resp.statusCode, body
         resultHandler {error: resp.statusCode, message: body}, null
       else
         resultHandler null, body

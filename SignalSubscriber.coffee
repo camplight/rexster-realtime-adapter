@@ -14,7 +14,7 @@ module.exports = class Subscriber
       @event == "vertexPropertiesRemoved" and req.method == "DELETE" and req.url.indexOf("/vertices/") != -1 and req.url.indexOf("?") != -1 ||
       @event == "edgePropertiesRemoved" and req.method == "DELETE" and req.url.indexOf("/edges/") != -1 and req.url.indexOf("?") != -1 ||
 
-      @event == "graphCleared" and req.method == "DELETE" and req.url == "/graphs/graph"
+      @event == "graphCleared" and req.method == "DELETE" and req.url.indexOf("/graphs/") != -1
 
     return expression
 

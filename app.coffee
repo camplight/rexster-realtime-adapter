@@ -50,7 +50,7 @@ everyone.now.execute = (clientId, req, resultHandler) ->
     
     # notify all subscribers matching req as action event
     _.each subscribers, (subscriber) ->
-      if subscriber.match req
+      if subscriber.match(req) and subscriber.clientId != clientId
         subscriber.notify req, response
 
 console.log "rexter adapter listening on port #{app.address().port} in #{app.settings.env} mode"

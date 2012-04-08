@@ -38,4 +38,4 @@ module.exports.use = (execute, Node)->
     getInVertex: (handle, classType = Vertex) ->
       execute "GET", @graph.name, "/vertices/"+@_inV, null, wrapResponseForObject(@graph, classType, handle)
   
-  return { Vertex: Vertex, Edge: Edge}
+  return { Vertex: Vertex, Edge: Edge }

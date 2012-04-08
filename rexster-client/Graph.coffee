@@ -1,3 +1,5 @@
+_ = require("./underscore")
+
 module.exports.use = (execute, now) ->
   Node = require("./Node").use(execute)
   VertexEdge = require("./VertexEdge").use(execute, Node)
@@ -32,6 +34,19 @@ module.exports.use = (execute, now) ->
     getEdge: (id, handle, classType = Edge) ->
       execute "GET", @name, "/edges/"+id, null, (err, response) =>
         handle err, new classType(response.results, @)
+    
+    getVertexes: (handle, classType = Vertex) ->
+      execute "GET", @name, "/vertices/", null, (err, response) =>
+        vertexes = []
+        _.each response.results, (item) ->
+          vertexes.push(new classType(item, @))
+        handle err, vertexes
+    getEdges: (handle, classType = Edge) ->
+      execute "GET", @name, "/edges/", null, (err, response) =>
+        edges = []
+        _.each response.results, (item) ->
+          edges.push(new classType(item, @))
+        handle err, edges
     
     clear: (handle) ->
       execute "DELETE", @name, "", null, (err, response) =>
